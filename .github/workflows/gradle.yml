@@ -28,13 +28,12 @@ jobs:
       env:
         TEST_REPORTS: ${{github.workspace}}/build/test-results/test
         
-    - name: Publish Test Results
+    - name: Parse test results
       uses: EnricoMi/publish-unit-test-result-action@v2
-      if: always()
       with:
-        files: |
-            ${{github.workspace}}/build/test-results/**/*.xml
-            ${{github.workspace}}/build/test-results/**/*.trx
+        files: ${{env.TEST_REPORTS}}/**/*.xml
+        # Specify the test results format
+        format: junit-xml
         
     # Upload test results as an artifact
     - name: Upload test results
