@@ -22,14 +22,23 @@ jobs:
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
         arguments: build
-          
-    - name: Build and test with Gradle
-      run: |
-        chmod +x gradlew
-        ./gradlew build test
-
-    - name: Publish test results
+                 
+    - name: Test with Gradle
+      run: ./gradlew test
+      env:
+        TEST_REPORTS: ${{github.workspace}}/build/test-results/test
+        
+      # Parse test results into JUnit format
+    - name: Parse test results
+      uses: EnricoMi/publish-unit-test-result-action@v1
+      with:
+        files: ${{env.TEST_REPORTS}}/**/*.xml
+        # Specify the test results format
+        format: junit-xml
+        
+    # Upload test results as an artifact
+    - name: Upload test results
       uses: actions/upload-artifact@v2
       with:
         name: Test results
-        path: build/test-results/test/
+        path: ${{github.workspace}}/build/test-results/test
