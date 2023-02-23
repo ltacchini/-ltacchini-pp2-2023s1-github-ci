@@ -26,10 +26,10 @@ jobs:
     - name: Test with Gradle
       run: ./gradlew test
         
-    # Upload test results as an artifact
-    - name: Upload test results
-    - uses: actions/upload-artifact@v2  # upload test results
-      if: success() || failure()        # run this step even if previous step failed
+    - name: Publish Test Report
+      uses: mikepenz/action-junit-report@v2 
+      if: always()
       with:
-          name: test-results
-          path: jest-junit.xml
+        report_paths: '**/build/test-results/test/TEST-*.xml'
+
+
