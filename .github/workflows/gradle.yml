@@ -31,7 +31,7 @@ jobs:
     - name: Parse test results
       uses: EnricoMi/publish-unit-test-result-action@v2
       with:
-        files: ${{env.TEST_REPORTS}}/**/*.xml
+        files: ${{github.workspace}}/build/test-results/test/**/*.xml
         # Specify the test results format
         format: junit-xml
         
