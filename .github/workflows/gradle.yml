@@ -28,13 +28,6 @@ jobs:
       env:
         TEST_REPORTS: ${{github.workspace}}/build/test-results/test
         
-    - name: Parse test results
-      uses: EnricoMi/publish-unit-test-result-action@v2
-      with:
-        files: ${{github.workspace}}/build/test-results/test/**/*.xml
-        # Specify the test results format
-        format: junit-xml
-        
     # Upload test results as an artifact
     - name: Upload test results
       uses: actions/upload-artifact@v2
