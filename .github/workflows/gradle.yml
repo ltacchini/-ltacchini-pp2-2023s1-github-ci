@@ -30,12 +30,12 @@ jobs:
       with:
         sarif_file: build/reports/spotbugs/main.sarif
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.TOKEN }}
     
     - name: Publish Test Results as Github Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.TOKEN}}
         publish_dir: ./build/reports/tests/test/
 
     
