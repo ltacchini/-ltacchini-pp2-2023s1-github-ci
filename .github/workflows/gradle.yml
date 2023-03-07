@@ -26,21 +26,10 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
         
-    - name: Upload SARIF file
-      uses: github/codeql-action/upload-sarif@v2
+    - name: Archive Test Results
+      uses: actions/upload-artifact@v2
       with:
-        # Path to SARIF file relative to the root of the repository
-        sarif_file: results.sarif
-        # Optional category for the results
-        # Used to differentiate multiple results for one commit
-        category: my-analysis-tool
-      env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
-    
-    - name: Publish Test Results as Github Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.TOKEN}}
-        publish_dir: ./build/reports/tests/test/
+        name: test-results
+        path: build/reports/tests/test/
 
     
